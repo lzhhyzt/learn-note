@@ -1,0 +1,33 @@
+一. 准备工作
+		1. 创建SSH Key 
+			ssh-keygen -t rsa -C "1583247975@qq.com"
+            
+		2. 进入用户主目录 C:\Users\Administrator\.ssh
+			id_rsa 		私钥
+			id_rsa.pub 	公钥
+            
+		3. 进入github用户设置的ssh里，添加公钥的内容
+        
+二. 添加远程库
+		1. 添加远程库，origin只是习惯叫法课更改
+			git remote add origin git@github.com:wenye123/wenye123.github.io.git
+            
+		2. 推送本地master分支到远程库master分支 (第一次推送需要 -u 参数，把本地和远程库的master分支关联起来)
+			git push -u origin master
+            
+		3. 后续推送
+			git push origin master
+            
+三. 从远程库克隆
+		1. 直接从远程库拉取(会自动新建一个文件夹)
+			git clone git@github.com:wenye123/vue-trip.git
+            
+		2. 进入这个文件夹
+			cd vue-trip
+            
+四. github的使用
+		1. fork一个项目到自己仓库中
+        
+		2. 本地克隆这个仓库后修改
+        
+		3. 本子github仓库提交 pull request

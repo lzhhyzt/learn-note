@@ -21,4 +21,10 @@ AT&T
 
 <a href="http://images.google.com/images?num=30&q=larry+bird">http://images.google.com/images?num=30&amp;q=larry+bird</a>
 
-[百度](http://images.google.com/images?num=30&amp;q=larry+bird) 
+[百度](http://images.google.com/images?num=30&q=larry+bird "新浪") 
+
+<http://baidu.com>
+
+```
+this is
+```

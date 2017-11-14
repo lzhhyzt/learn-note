@@ -1,17 +1,19 @@
-一. 创建, 合并分支和解决冲突
+一. 创建, 合并分支和解决冲突（本地仓库）
 		1. 解释
 			1. 分支是一条线，每次commit是一个节点，节点连接一条线就叫分支，master的分支就叫主分支
 			2. HEAD指向master，master指向最新的节点。每次commit多一个节点，HEAD连着master向前移动一位指向这个节点
 			3. 假设创建一个新的分支dev，dev分支会指向和master同一样的节点。切换为dev分支后，HEAD会指向dev分支而不是master。以后每次commit节点，dev分支就会前进一步，master留在原位
 			4. 合并dev分支就是切换到master分支，然后merge合并
 			5. merge分支时默认使用 Fast-forward方式，一旦删除分支后就会丢失分支信息。使用 --no-ff参数可以禁止Fast-forward方式并生成一个新的commit, 所以还需要-m 参数(commit信息)
-			6. 如果分支合并冲突，需要手工冲突后提交给版本库
+			6. 如果分支合并冲突，需要手工解决冲突后提交给版本库
 			7. 最后删除分支
 		2. 使用
 			1. 创建并切换为dev分支
-				git checkout -b dev 
+				创建：
+				git checkout -b dev  （创建分支后切换到创建后的分支） 
 				或
-				git branch dev 
+				git branch dev     （创建分支后并不会切换到创建后的分支） 
+				切换：
 				git checkout dev
 			2. 查看当前分支 (*表示当前分支)
 				git branch
@@ -21,17 +23,46 @@
 				git checkout master 
 			5. 增加readme.txt的内容，然后提交到版本库
 				this is master data;
-			6. 再合并dev分支 (默认使用Fast-forward方式 : git merge dev)
+			6. 切换到主分支，再合并dev分支 (默认使用Fast-forward方式 : git merge dev)
 				git merge --no-ff -m "merge with --no-ff" dev 
 			7. 出现冲突，手工解决冲突，然后提交到版本库
 			8. 使用 git log --graph 查看分支合并图
 				git log --graph --pretty=oneline --abbrev-commit
 			9. 删除dev分支
+				在主分支master执行命令：
 				git branch -d dev
-	
-二. 分支管理策略
+				在其他分支上执行命令:
+				git branch -D dev
+
+二. 远程仓库分支操作
+		1. 本地创建的分支推送/同步到远程仓库
+			方法1：
+				切换到master或者其他远程仓库已有的分支（前提）:
+				git checkout master/其他分支
+				然后:
+				git push origin dev     // 这一句的原理其实类似于"复制"的意思：把master复制一份赋予远程仓库的dev分支，如果没有该分支则创建
+
+			方法2：
+				不用切换到其他分支，可以在任何分支下执行该命令
+				git push origin native_branch:remote_branch  // native_branch 本地分支，remote_branch 远程分支
+				例子：
+				git push origin dev:dev      // 使用本地的dev分支覆盖远程的dev分支，远程没有该分支则创建
+				git push origin master:dev   // 使用本地的master分支覆盖远程的dev分支
+
+		2. 查看远程仓库的分支：
+			只查看远程仓库：
+			git branch -r
+			查看本地仓库和远程仓库的分支对比：
+			git branch -a        // 红色字的是远程仓库
+
+		3. 删除远程仓库分支：
+			git push origin :remote_branch     // remote_branch 远程仓库分支
+			或 
+			git push origin --delete remote_branch
+
+三. 分支管理策略
 		1. 解释
-			1. master分支只是用法发布新版本的，平时开发在dev分支上，发布版本时才合并
+			1. master分支只是用于发布新版本的，平时开发在dev分支上，发布版本时才合并
 			2. dev分支开发时，需要修复master分支的bug
 				1. 将dev分支stash起来
 				2. 回到master分支创建bug分支，修复完合并bug分支
@@ -44,21 +75,21 @@
 				2. dev分支 		开发分支 	团队成员工作，需要
 				3. bug分支 		修复bug分支，合并master分支推送就行了，一般不需要
 				4. feature分支 		功能分支，取决于这个功能是否团队开发
-			5. 多人协作的工作模式
+			5. *多人协作的工作模式
 				1. 首先尝试 git push origin branch-name 推送自己的修改
 				2. 推送失败，说明远程分支比自己本地更新，git pull 试图合并
 				3. git pull失败则用git branch --set-upstream branch-name origin/branch-name建立本地分支和远程分支的链接
-				4. 手工解决冲突地方并提交版本库
+				4. git status 查看哪些文件冲突了，然后手工解决冲突地方并提交版本库
 				5. 推送到远程库：git push origin branch-name
 
 
 
-三. bug分支
+四. bug分支
 		1. 切换到dev分支开发
 			git checkout -b dev 
 		2. 增加readme.txt内容，然后不要提交
 			dev is working.....
-		3. 把dev分支储藏起来
+		3. *把dev分支储藏起来
 			git stash 
 		4. 查看当前工作区状态，stash列表
 			git status
@@ -77,10 +108,10 @@
 			git checkout dev 
 			git status 
 			git stash list
-		10. 恢复并删除stash
-			git stash pop 
+		10. *恢复并删除stash
+			git stash pop       // 恢复+删除
 			或
-			git stash apply 		//恢复stash
+			git stash apply     //恢复stash
 			git stash drop 		//删除stash
 		11. 查看当前工作区状态，stash列表。发现回到之前dev的状态，之前的stash被删除
 			git status

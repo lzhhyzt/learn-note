@@ -9,7 +9,7 @@
 		3. 进入github用户设置的ssh里，添加公钥的内容
         
 二. 添加远程库
-		1. 添加远程库，origin只是习惯叫法课更改
+		1. 添加远程库，origin只是习惯叫法可更改
 			git remote add origin git@github.com:wenye123/wenye123.github.io.git
             
 		2. 推送本地master分支到远程库master分支 (第一次推送需要 -u 参数，把本地和远程库的master分支关联起来)
@@ -17,6 +17,10 @@
             
 		3. 后续推送
 			git push origin master
+			
+		4. 查看远程仓库信息
+			git remote -v
+			git remote show origin
             
 三. 从远程库克隆
 		1. 直接从远程库拉取(会自动新建一个文件夹)
@@ -30,4 +34,17 @@
         
 		2. 本地克隆这个仓库后修改
         
-		3. 本子github仓库提交 pull request
+		3. 本地github仓库提交 pull request
+
+五. 切换远程仓库地址
+		这里有三种方法可以切换远程仓库的地址：
+		1. 直接使用修改命令
+			git remote set-url origin url 
+
+		2. 先删除后添加
+			git remote rm origin
+			git remote add origin url
+
+		3. 修改配置文件
+		如果你的项目有加入版本控制，那可以到项目根目录下，查看隐藏文件夹， 发现.git文件夹，
+		找到其中的config文件，就可以修改其中字段url的git remote origin地址了。

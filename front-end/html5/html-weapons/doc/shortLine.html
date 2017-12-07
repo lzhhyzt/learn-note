@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			.opop {
+				position: relative;
+			}
+			.box {
+				position: relative;
+				display: block;
+				border: 1px solid orange;
+				width:100%;
+				height: 50px;
+				left:50%;
+				transform: translateX(-50%);
+			}
+			.left,
+			.right,
+			.content {
+				position: absolute;
+				display: inline-block;
+				top: 50%;
+				transform: translateY(-50%); /*垂直居中*/
+			}
+			.left,
+			.right {
+				border: 1px solid gainsboro; /*改变左右短线的颜色*/
+			}
+			.left {
+				left: 1%;
+				width: 31%;
+				margin-right: 3%;
+			}
+			.content {
+				height: 20px;
+				line-height: 20px;
+				text-align:center;
+				font-family: "微软雅黑";
+				left: 35%;
+				width: 30%;
+			}
+			.right {
+				left: 65%;
+				width: 31%;
+				margin-left: 3%;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="opop">
+			<div class="box">
+			<div class="left"></div>
+			<div class="content">这是内容这是内容这是内容这是内容</div>
+			<div class="right"></div>
+		</div>
+		</div>
+		
+	</body>
+</html>
